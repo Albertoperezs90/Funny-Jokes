@@ -4,6 +4,8 @@
     Author     : alberto
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="entities.Categoria"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +14,7 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="css/style.css"/>
         
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -58,17 +61,56 @@
             </nav>
             <!--End nav bar header-->
         </header>
-        
-        
-        
         <div class="container">
+            <!--Filter-->
+            <!-- Modal Trigger -->
+            <a id="modal_button" class="btn-floating btn-large red modal-trigger" href="#modal1">
+                <i id="filter_icon" class="large material-icons">filter_list</i>
+            </a>
             
+            <!-- Modal Structure -->
+            <div id="modal1" class="modal bottom-sheet">
+                <div class="modal-content">
+                    <h4>Filtrar por categoría</h4>
+                    <form action="#">
+                        
+                           <%
+                             List<Categoria> categories = (List<Categoria>) session.getAttribute("categories");
+                             for (Categoria c : categories){
+                                 %>
+                                 <p>
+                                 <input type="checkbox" id="chkbx<%=c.getId()%>"/>
+                                 <label for="chkbx<%=c.getId()%>"><%=c.getNombre()%></label>
+                                 </p>
+                                 <%
+                             }
+                           %>
+                        
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
+                </div>
+            </div>
+            <!--End Filter-->
+            <!--Table Jokes-->
+            <table class="striped">
+        <tbody>
+          <tr>
+            <td>Alvin</td>
+            <td>Eclair</td>
+            <td>$0.87</td>
+          </tr>
+        </tbody>
+             </table>
+            <!--End Table Jokes-->-
         </div>
-        
         <script type="text/javascript">
             $(document).ready(function(){
                 $(".button-collapse").sideNav();
                 $(".dropdown-button").dropdown();
+                $('select').material_select();
+                $('.modal').modal();
             });
         </script>
     </body>
