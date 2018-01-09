@@ -15,7 +15,7 @@ public class JPAUtil {
         private static final EntityManagerFactory emf;
     static{
         try{
-            emf=Persistence.createEntityManagerFactory("JPAMetroPU");
+            emf=Persistence.createEntityManagerFactory("JPAChistesPU");
         } catch (Throwable ex) {
             System.err.println("Error al crear SessionFactoty."+ ex);
             throw new ExceptionInInitializerError(ex);

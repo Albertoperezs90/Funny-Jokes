@@ -51,6 +51,9 @@ public class Chiste implements Serializable {
     @JoinColumn(name = "IDCATEGORIA", referencedColumnName = "ID")
     @ManyToOne
     private Categoria idcategoria;
+    @JoinColumn(name = "IDUSER", referencedColumnName = "ID")
+    @ManyToOne
+    private Usuario iduser;
 
     public Chiste() {
     }
@@ -106,6 +109,14 @@ public class Chiste implements Serializable {
 
     public void setIdcategoria(Categoria idcategoria) {
         this.idcategoria = idcategoria;
+    }
+
+    public Usuario getIduser() {
+        return iduser;
+    }
+
+    public void setIduser(Usuario iduser) {
+        this.iduser = iduser;
     }
 
     @Override

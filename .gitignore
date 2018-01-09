@@ -1,2 +1,4 @@
 
 JPAChistes/src/conf/persistence.xml
+/JPAChistes/build/
+/JPAChistes/dist/
