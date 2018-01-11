@@ -94,16 +94,27 @@
             </div>
             <!--End Filter-->
             <!--Table Jokes-->
-            <table class="striped">
-        <tbody>
-          <tr>
-            <td>Alvin</td>
-            <td>Eclair</td>
-            <td>$0.87</td>
-          </tr>
-        </tbody>
-             </table>
-            <!--End Table Jokes-->-
+            <form id="joke1">
+            <ul class="collection">
+                <li class="collection-item avatar">
+                    <img src="uploads/imgs/rating5.png" alt="" class="circle">
+                    <span class="title">Hormigas</span>
+                    <span class="title">Alberto</span>
+                    <div class="cb"/>
+                    <p>Animales<br>
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+                    </p>
+                    <span class="rating">
+                    <a href="javascript: submitRating(1)"><i class="material-icons">grade</i></a>
+                    <a href="javascript: submitRating(2)"><i class="material-icons">grade</i></a>
+                    <a href="javascript: submitRating(3)"><i class="material-icons">grade</i></a>
+                    <a href="javascript: submitRating(4)"><i class="material-icons">grade</i></a>
+                    <a href="javascript: submitRating(5)"><i class="material-icons">grade</i></a>
+                    </span>
+                </li>
+            </ul>
+                </form>
+            <!--End Table Jokes-->
         </div>
         <script type="text/javascript">
             $(document).ready(function(){
