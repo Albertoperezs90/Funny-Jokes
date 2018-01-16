@@ -14,7 +14,7 @@ and open the template in the editor.
 
 #modal_button {
     bottom: 0;
-    position: absolute;
+    position: fixed;
     margin-bottom: 15px;
     right: 0;
     margin-right: 15px;
@@ -69,6 +69,10 @@ ul[class="collection"] {
 
 .cb {
     clear: both;
+}
+
+.rating a {
+    cursor: pointer;
 }
 
 

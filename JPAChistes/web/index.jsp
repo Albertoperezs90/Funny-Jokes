@@ -4,6 +4,8 @@
     Author     : alberto
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="entities.Chiste"%>
 <%@page import="java.util.List"%>
 <%@page import="entities.Categoria"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -94,26 +96,35 @@
             </div>
             <!--End Filter-->
             <!--Table Jokes-->
-            <form id="joke1">
-            <ul class="collection">
-                <li class="collection-item avatar">
-                    <img src="uploads/imgs/rating5.png" alt="" class="circle">
-                    <span class="title">Hormigas</span>
-                    <span class="title">Alberto</span>
-                    <div class="cb"/>
-                    <p>Animales<br>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
-                    </p>
-                    <span class="rating">
-                    <a href="javascript: submitRating(1)"><i class="material-icons">grade</i></a>
-                    <a href="javascript: submitRating(2)"><i class="material-icons">grade</i></a>
-                    <a href="javascript: submitRating(3)"><i class="material-icons">grade</i></a>
-                    <a href="javascript: submitRating(4)"><i class="material-icons">grade</i></a>
-                    <a href="javascript: submitRating(5)"><i class="material-icons">grade</i></a>
-                    </span>
-                </li>
-            </ul>
-                </form>
+            <%
+              List<Chiste> chistes = (List<Chiste>) session.getAttribute("chistes");
+              for (Chiste c : chistes) {
+                  //TODO make this
+                  c.getPuntosList().get(0).getPuntos();
+                  %>
+                  <form id="<%=c.getId()%>" name="joke<%=c.getId()%>">
+                      <ul class="collection">
+                          <li class="collection-item avatar">
+                              <img src="uploads/imgs/rating5.png" alt="" class="circle">
+                              <span class="title"><%=c.getTitulo()%></span>
+                              <span class="title"><%=c.getAdopo()%></span>
+                              <div class="cb"/>
+                              <p><%=c.getTitulo()%><br/>
+                                  <%=c.getDescripcion()%>
+                              </p>
+                              <span class="rating">
+                                  <a id="rating5_<%=c.getId()%>"><i class="material-icons">grade</i></a>
+                                  <a id="rating4_<%=c.getId()%>"><i class="material-icons">grade</i></a>
+                                  <a id="rating3_<%=c.getId()%>"><i class="material-icons">grade</i></a>
+                                  <a id="rating2_<%=c.getId()%>"><i class="material-icons">grade</i></a>
+                                  <a id="rating1_<%=c.getId()%>"><i class="material-icons">grade</i></a>
+                              </span>
+                          </li>
+                      </ul>
+                  </form>
+                  <%
+              }    
+            %>
             <!--End Table Jokes-->
         </div>
         <script type="text/javascript">
@@ -122,6 +133,39 @@
                 $(".dropdown-button").dropdown();
                 $('select').material_select();
                 $('.modal').modal();
+                
+                $(".rating a").click(function(){
+                   let idRating = this.id.toString();
+                   let id = idRating.substring(idRating.indexOf('_') + 1, idRating.length);
+                   let form = $('form[name="joke'+id+'"]');
+                   let idJoke = form.attr("id");
+
+                   $.ajax({
+                        type: 'POST',
+                        url: 'rating.jsp',
+                        data: {"idJoke":idJoke,"idRating":id},
+                        success: function (result) {
+                            //TODO make this
+                            console.log(result);
+                        },
+                        error: function () {
+                            alert("error");
+                        }
+                   });
+                });
+                
+                $("#modal1 input").click(function(){
+                    let id = this.id;
+                    
+                    $.ajax({
+                        type: 'POST',
+                        url: "filter.jsp",
+                        data: id,
+                        success: function (result) {
+                            //TODO make this
+                        }
+                    })
+                })
             });
         </script>
     </body>

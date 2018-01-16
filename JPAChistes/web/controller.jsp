@@ -28,8 +28,14 @@
             
             if (get.equals(null) || get.equals("index")){
                 List<Categoria> categories = em.createNamedQuery("Categoria.findAll").getResultList();
+                List<Chiste> chistes = em.createNamedQuery("Chiste.findAll").getResultList();
+                session.setAttribute("chistes", chistes);
                 session.setAttribute("categories", categories);
                 %><jsp:forward page="index.jsp"/><%
+                    
+            }else if (get.equals("rating")){
+                em.getTransaction().begin();
+                
             }
         %>
     </body>
