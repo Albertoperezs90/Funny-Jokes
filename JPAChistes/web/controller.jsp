@@ -32,10 +32,10 @@
                 session.setAttribute("chistes", chistes);
                 session.setAttribute("categories", categories);
                 %><jsp:forward page="index.jsp"/><%
-                    
             }else if (get.equals("rating")){
                 em.getTransaction().begin();
-                
+            }else if (get.equals("filter")){
+                ArrayList<Categoria> filter = (ArrayList < Categoria >) request.getAttribute("filter");
             }
         %>
     </body>

@@ -6,6 +6,8 @@
 package entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -142,6 +144,5 @@ public class Chiste implements Serializable {
     @Override
     public String toString() {
         return "entities.Chiste[ id=" + id + " ]";
-    }
-    
+    }  
 }

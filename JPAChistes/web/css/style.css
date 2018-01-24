@@ -75,4 +75,24 @@ ul[class="collection"] {
     cursor: pointer;
 }
 
+.rating_5 a{
+    color: gold;
+}
+
+.rating_4 a{
+    color: gold;
+}
+
+.rating_3 a{
+    color: gold;
+}
+
+.rating_2 a{
+    color: gold;
+}
+
+.rating_1 a{
+    color: gold;
+}
+
 

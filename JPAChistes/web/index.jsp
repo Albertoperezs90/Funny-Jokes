@@ -4,6 +4,7 @@
     Author     : alberto
 --%>
 
+<%@page import="entities.Puntos"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="entities.Chiste"%>
 <%@page import="java.util.List"%>
@@ -75,7 +76,6 @@
                 <div class="modal-content">
                     <h4>Filtrar por categoría</h4>
                     <form action="#">
-                        
                            <%
                              List<Categoria> categories = (List<Categoria>) session.getAttribute("categories");
                              for (Categoria c : categories){
@@ -87,7 +87,7 @@
                                  <%
                              }
                            %>
-                        
+                           
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -99,13 +99,32 @@
             <%
               List<Chiste> chistes = (List<Chiste>) session.getAttribute("chistes");
               for (Chiste c : chistes) {
-                  //TODO make this
-                  c.getPuntosList().get(0).getPuntos();
+                  int i = 0;
+                  int sumPoints = 0;
+                  for (Puntos p : c.getPuntosList()){
+                      sumPoints += p.getPuntos().intValue();
+                      i++;
+                  }
+                  if (i != 0){
+                      sumPoints/=i;
+                  }
                   %>
                   <form id="<%=c.getId()%>" name="joke<%=c.getId()%>">
                       <ul class="collection">
                           <li class="collection-item avatar">
-                              <img src="uploads/imgs/rating5.png" alt="" class="circle">
+                              <%
+                              if (sumPoints == 5){
+                                  %><img src="uploads/imgs/rating5.png" alt="" class="circle"><%
+                              }else if (sumPoints == 4){
+                                  %><img src="uploads/imgs/rating4.png" alt="" class="circle"><%
+                              }else if (sumPoints == 3){
+                                  %><img src="uploads/imgs/rating3.png" alt="" class="circle"><%
+                              }else if (sumPoints == 2){
+                                  %><img src="uploads/imgs/rating2.png" alt="" class="circle"><%
+                              }else if (sumPoints <= 1){
+                                  %><img src="uploads/imgs/rating1.png" alt="" class="circle"><%
+                              }    
+                              %>
                               <span class="title"><%=c.getTitulo()%></span>
                               <span class="title"><%=c.getAdopo()%></span>
                               <div class="cb"/>
@@ -113,11 +132,49 @@
                                   <%=c.getDescripcion()%>
                               </p>
                               <span class="rating">
-                                  <a id="rating5_<%=c.getId()%>"><i class="material-icons">grade</i></a>
-                                  <a id="rating4_<%=c.getId()%>"><i class="material-icons">grade</i></a>
-                                  <a id="rating3_<%=c.getId()%>"><i class="material-icons">grade</i></a>
-                                  <a id="rating2_<%=c.getId()%>"><i class="material-icons">grade</i></a>
-                                  <a id="rating1_<%=c.getId()%>"><i class="material-icons">grade</i></a>
+                                  <%
+                                  if (sumPoints == 5){
+                                      %><span class="rating_5"><%
+                                        %><a id="rating5_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                        %><a id="rating4_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                        %><a id="rating3_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                        %><a id="rating2_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                        %><a id="rating1_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                      %></span><%
+                                  }else if (sumPoints == 4){
+                                        %><a id="rating5_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                      %><span class="rating_4"><%
+                                        %><a id="rating4_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                        %><a id="rating3_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                        %><a id="rating2_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                        %><a id="rating1_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                      %></span><%
+                                  }else if (sumPoints == 3){
+                                        %><a id="rating5_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                        %><a id="rating4_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                      %><span class="rating_3"><%
+                                        %><a id="rating3_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                        %><a id="rating2_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                        %><a id="rating1_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                      %></span><%
+                                  }else if (sumPoints == 2){
+                                        %><a id="rating5_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                        %><a id="rating4_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                        %><a id="rating3_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                      %><span class="rating_2"><%
+                                        %><a id="rating2_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                        %><a id="rating1_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                      %></span><%
+                                  }else if (sumPoints <= 1){
+                                        %><a id="rating5_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                        %><a id="rating4_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                        %><a id="rating3_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                        %><a id="rating2_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                      %><span class="rating_1"><%
+                                        %><a id="rating1_<%=c.getId()%>"><i class="material-icons">grade</i></a><%
+                                      %></span><%
+                                  }
+                                  %>
                               </span>
                           </li>
                       </ul>
@@ -159,13 +216,13 @@
                     
                     $.ajax({
                         type: 'POST',
-                        url: "filter.jsp",
+                        url: "controller.jsp",
                         data: id,
                         success: function (result) {
-                            //TODO make this
+                            //TODO
                         }
-                    })
-                })
+                    });
+                });
             });
         </script>
     </body>

@@ -4,7 +4,15 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Workspace/WS2DAM/Netbeans/practicas/JPAChistes/JPAChistes/web/index.jsp</file>
+            <file>file:/D:/Workspace/WS2DAM/Netbeans/practicas/JPAChistes/JPAChistes/web/rating.jsp</file>
+            <file>file:/D:/Workspace/WS2DAM/Netbeans/practicas/JPAChistes/JPAChistes/web/filter.jsp</file>
             <file>file:/D:/Workspace/WS2DAM/Netbeans/practicas/JPAChistes/JPAChistes/web/css/style.css</file>
+            <file>file:/D:/Workspace/WS2DAM/Netbeans/practicas/JPAChistes/JPAChistes/src/java/entities/Chiste.java</file>
+            <file>file:/D:/Workspace/WS2DAM/Netbeans/practicas/JPAChistes/JPAChistes/web/css/materialize.css</file>
+            <file>file:/D:/Workspace/WS2DAM/Netbeans/practicas/JPAChistes/JPAChistes/src/java/entities/Categoria.java</file>
+            <file>file:/D:/Workspace/WS2DAM/Netbeans/practicas/JPAChistes/JPAChistes/web/controller.jsp</file>
+            <file>file:/D:/Workspace/WS2DAM/Netbeans/practicas/JPAChistes/JPAChistes/src/java/entities/Puntos.java</file>
+            <file>file:/D:/Workspace/WS2DAM/Netbeans/practicas/JPAChistes/JPAChistes/src/java/entities/Usuario.java</file>
         </group>
     </open-files>
 </project-private>
