@@ -28,6 +28,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Puntos.findAll", query = "SELECT p FROM Puntos p")
     , @NamedQuery(name = "Puntos.findById", query = "SELECT p FROM Puntos p WHERE p.id = :id")
+    , @NamedQuery(name = "Puntos.sortByPuntos", query = "SELECT p.idchiste FROM Puntos p GROUP BY p.idchiste ORDER BY avg(p.puntos) desc")
+    , @NamedQuery(name = "Puntos.findByIdChiste", query = "SELECT p FROM Puntos p WHERE p.idchiste.id = :idchiste")    
     , @NamedQuery(name = "Puntos.findByPuntos", query = "SELECT p FROM Puntos p WHERE p.puntos = :puntos")})
 public class Puntos implements Serializable {
 

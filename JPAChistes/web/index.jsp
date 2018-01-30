@@ -13,6 +13,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8" /> 
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
@@ -46,22 +47,25 @@
             </ul>
             <!--End index card profile-->
             <!--Start nav bar header-->
+            <div class="navbar-fixed">
             <nav>
                 <div class="nav-wrapper">
-                    <a href="#!" class="brand-logo">Logo</a>
+                    <a href="#!" class="brand-logo"><img width="120" height="120" src="uploads/imgs/logo.png" alt="logo"/></a>
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
-                        <li><a href="badges.html">Mejores Chistes</a></li>
+                        <li><a href="#">Mejores Chistes</a></li>
                         <li id="unlogged"><a class="waves-effect waves-light btn"><i class="material-icons left">local_library</i>Ingresar</a></li>
                         <li id="logged"><!--<a class="waves-effect waves-light btn"><i class="material-icons left">local_library</i>Perfil</a>--></li>
                     </ul>
-                    <ul class="side-nav" id="mobile-demo">
-                        <li><a href="badges.html">Mejores Chistes</a></li>
+                    
+                </div>
+            </nav>
+            </div>
+            <ul class="side-nav" id="mobile-demo">
+                        <li><a href="#">Mejores Chistes</a></li>
                         <li id="unlogged"><a><i class="material-icons left">local_library</i>Ingresar</a></li>
                         <li id="logged"><!--<a><i class="material-icons left">local_library</i>Perfil</a>--></li>
                     </ul>
-                </div>
-            </nav>
             <!--End nav bar header-->
         </header>
         <div class="container">
@@ -70,31 +74,35 @@
             <a id="modal_button" class="btn-floating btn-large red modal-trigger" href="#modal1">
                 <i id="filter_icon" class="large material-icons">filter_list</i>
             </a>
-            
+                
             <!-- Modal Structure -->
             <div id="modal1" class="modal bottom-sheet">
                 <div class="modal-content">
                     <h4>Filtrar por categoría</h4>
-                    <form action="#">
-                           <%
+                    <form id="categories_form" action="#">
+                        <button class="btn waves-effect waves-light modal-close" type="submit" name="action">Aceptar
+                            <i class="material-icons right">send</i>
+                        </button>
+                        <p>
+                            <input type="checkbox" id="all"/>
+                            <label for="all">Todas</label>
+                        </p>
+                        <%
                              List<Categoria> categories = (List<Categoria>) session.getAttribute("categories");
                              for (Categoria c : categories){
-                                 %>
+                             %>
                                  <p>
                                  <input type="checkbox" id="chkbx<%=c.getId()%>"/>
                                  <label for="chkbx<%=c.getId()%>"><%=c.getNombre()%></label>
                                  </p>
-                                 <%
+                             <%
                              }
                            %>
-                           
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
                 </div>
             </div>
             <!--End Filter-->
+            <div id="jokes_table">
             <!--Table Jokes-->
             <%
               List<Chiste> chistes = (List<Chiste>) session.getAttribute("chistes");
@@ -120,7 +128,7 @@
                               }else if (sumPoints == 3){
                                   %><img src="uploads/imgs/rating3.png" alt="" class="circle"><%
                               }else if (sumPoints == 2){
-                                  %><img src="uploads/imgs/rating2.png" alt="" class="circle"><%
+                                  %><img src="uploads/imgs/rating2.jpg" alt="" class="circle"><%
                               }else if (sumPoints <= 1){
                                   %><img src="uploads/imgs/rating1.png" alt="" class="circle"><%
                               }    
@@ -183,6 +191,7 @@
               }    
             %>
             <!--End Table Jokes-->
+                  </div>
         </div>
         <script type="text/javascript">
             $(document).ready(function(){
@@ -191,38 +200,80 @@
                 $('select').material_select();
                 $('.modal').modal();
                 
-                $(".rating a").click(function(){
-                   let idRating = this.id.toString();
-                   let id = idRating.substring(idRating.indexOf('_') + 1, idRating.length);
-                   let form = $('form[name="joke'+id+'"]');
-                   let idJoke = form.attr("id");
-
+                $(".navbar-fixed + ul a:first").click(function(e){
+                    e.preventDefault();
+                    
+                    $.ajax({
+                        type: 'POST',
+                        url: 'controller.jsp?get=bestJokes',
+                        success: function (result) {
+                            $("#jokes_table").html(result);
+                            $('.button-collapse').sideNav('hide');
+                        }
+                    })
+                });
+                
+                $("nav ul:first a:first").click(function(e){
+                    e.preventDefault();
+                    
+                    $.ajax({
+                        type: 'POST',
+                        url: 'controller.jsp?get=bestJokes',
+                        success: function (result) {
+                            $("#jokes_table").html(result);
+                        }
+                    })
+                });
+                
+                $("#jokes_table").on("click",".rating a",function(){
+                   let star = this.id.toString();
+                   let id = star.substring(star.indexOf('_') + 1, star.length);
+                   let rating = star.substring(6, 7);
+                   
+                   console.log(id);
+                   console.log(rating);
+                   
                    $.ajax({
                         type: 'POST',
-                        url: 'rating.jsp',
-                        data: {"idJoke":idJoke,"idRating":id},
+                        url: 'controller.jsp?get=rating',
+                        data: "idJoke="+id+"&rating="+rating,
                         success: function (result) {
-                            //TODO make this
-                            console.log(result);
+                            $("form[id="+id+"]").html(result);
+                            Materialize.toast('Votación realizada!', 3000, 'rounded')
                         },
-                        error: function () {
-                            alert("error");
+                        error: function (error) {
+                            console.log(error.toString());
                         }
                    });
                 });
                 
-                $("#modal1 input").click(function(){
-                    let id = this.id;
-                    
+                $("#categories_form button").click(function(e){
+                    e.preventDefault();
+                    var checkboxs = getAllCheckboxCheked();
                     $.ajax({
-                        type: 'POST',
-                        url: "controller.jsp",
-                        data: id,
+                        type: "POST",
+                        url: "controller.jsp?get=filter",
+                        data: "filt="+checkboxs.toString(),
                         success: function (result) {
-                            //TODO
+                            $("#jokes_table").html(result);
                         }
                     });
                 });
+                
+                function getAllCheckboxCheked(){
+                 var checkboxs = new Array();
+                 
+                 $("input[type='checkbox']:checked").each(function(){
+                        if (this.id.toString() == "all"){
+                            checkboxs = new Array();
+                            checkboxs.push(-1);
+                            return checkboxs;
+                        }
+                        checkboxs.push(this.id.toString().substring(5,this.id.toString().length));
+                 });
+                 
+                 return checkboxs;
+            }
             });
         </script>
     </body>
